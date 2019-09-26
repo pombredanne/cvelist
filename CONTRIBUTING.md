@@ -7,7 +7,7 @@ pull requests or open issues in this repository currently.  Going
 forward, we hope to allow wider participation; eg, from
 security researchers and other cybersecurity
 community members.  Until then, others who wish to contribute should
-use the [CVE Request web form](https://cveform.mitre.org). If you are a sub-CNA (e.g. the Kubernetes Project is a sub-CNA of the DWF) you MUST push within your hierarchy first according to the rules within that hierarchy. For example if you are within the DWF you MUST push to your immediate parents fork of the cvelist repo (e.g. for Kubernetes this would be the the DWF cvelist fork at https://github.com/distributedweaknessfiling/cvelist).  
+use the [CVE Request web form](https://cveform.mitre.org). If you are a sub-CNA (e.g. the Kubernetes Project is a sub-CNA of the DWF) you MUST push within your hierarchy first according to the rules within that hierarchy. For example if you are within the DWF you MUST push to your immediate parents fork of the cvelist repo (e.g. for Kubernetes this would be the DWF cvelist fork at https://github.com/distributedweaknessfiling/cvelist).  
 
 2.  Only submit information to the MITRE cvelist repo that is intended to become public
 immediately.  There is **no support** for embargoed submissions!!
@@ -21,6 +21,12 @@ License Terms of Use](https://cve.mitre.org/about/termsofuse.html).
 5.  It is **strongly recommended** that submissions use [signed
 commits](https://help.github.com/articles/signing-commits-with-gpg/). Please note that some hierarchies (e.g. the DWF) require all submissions to be signed. 
 
+6.  Submissions from CNAs should be formatted using the [CVE JSON
+format](https://github.com/CVEProject/automation-working-group/tree/master/cve_json_schema). 
+If you are not familiar with that or do not have tools to work with
+that, have a look at [Vulnogram](https://vulnogram.github.io/), which
+offers a web-based interface for creating and editing information
+about one CVE at a time. 
 
 
 ## Sending Data about CVE Entries to MITRE
@@ -79,7 +85,7 @@ For now, let's assume you've named your branch `$YOUR_BRANCH` you can then chang
 git checkout $YOUR_BRANCH
 ```
 
-By branching against master epxlicitly you can have multiple current branches that can be submitted to your parent CNA seperately. 
+By branching against master explicitly you can have multiple current branches that can be submitted to your parent CNA seperately. 
 
 3. Make changes to one or more files.  **NB:** limit your changes to
 only those portions of the JSON that need to be updated rather than
@@ -129,11 +135,24 @@ Github reports that the branches can be merged.  If not, say because
 you forgot to ensure your fork was synched with the upstream master,
 make additional commits in your branch to resolve the merge conflicts. 
 
-After a pull request has been submitted, the CVE Team will review the
-submission and work with you to resolve issues.  Then the CVE Team
-will merge the updated files into the "master" branch and use the
-supplied information to update the associated entries in the CVE List
-itself. 
+After a pull request has been submitted, several checks will be
+launched automatically, such as to perform schema validation and check
+ownership.  The checks may add comments and labels to the pull request
+and, by default, Github should notify you via email of those
+automatically.  If the checks identify issues, you will need to
+address them before processing can continue. 
+
+Next, the CVE Team generally will also review the pull request,
+ensuring that descriptions contain product and version information,
+references provide provenance, etc.  As before, reviewers will add
+comments and labels to the pull request if additional issues are
+found, and you will need to address those before processing can
+continue. 
+
+Finally, the CVE Team will add an "accepted" label in the pull
+request, merge the updated files into the "master" branch, and use the
+supplied information to populate the associated entries in the CVE
+List itself. 
 
 Here is a visual respresentation of the git process:
 
@@ -152,6 +171,12 @@ github.com/CVEProject/cvelist --> fork --> github.com/$YOU/cvelist
                   |                                   V             some_other_branch
                   `-- push to your github <-- $YOUR_BRANCH
 ```
+
+Note that you may contact the CVE Team using the [CVE Request web
+form](https://cveform.mitre.org) if you wish to discuss something
+privately.  Note also that pull requests left open for more than 21
+days will be rejected. 
+
 
 ## Contact
 
